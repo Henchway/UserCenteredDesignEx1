@@ -1,5 +1,5 @@
-<app-data [currentPage]="currentPage" (selectPageEvent)="receiveMessage($event)"></app-data>
+<app-data [pageSize]="pageSize" [currentPage]="currentPage" (selectPageEvent)="setPage($event)" (setPageSizeEvent)="setPageSize($event)"></app-data>
 <br>
 <app-button [showAddData]="showAddData" (toggleButtonClickEvent)="toggleButtonClicked($event)"></app-button>
-<app-add-data *ngIf="showAddData" [currentPage]="currentPage"></app-add-data>
+<app-add-data *ngIf="showAddData" [currentPage]="currentPage" [pageSize]="pageSize"></app-add-data>
 

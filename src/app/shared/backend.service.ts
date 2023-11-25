@@ -18,23 +18,23 @@ export class BackendService {
     });
   }
 
-  public getChildren(page: number) {
-    this.http.get<ChildResponse[]>(`http://localhost:5000/childs?_expand=kindergarden&_page=${page}&_limit=${CHILDREN_PER_PAGE}`, { observe: 'response' }).subscribe(data => {
+  public getChildren(page: number, pageSize: number) {
+    this.http.get<ChildResponse[]>(`http://localhost:5000/childs?_expand=kindergarden&_page=${page + 1}&_limit=${pageSize}`, { observe: 'response' }).subscribe(data => {
       this.storeService.children = data.body!;
       this.storeService.childrenTotalCount = Number(data.headers.get('X-Total-Count'));
 
     });
     }
 
-    public addChildData(child: Child, page:  number) {
+    public addChildData(child: Child, page:  number, pageSize: number) {
       this.http.post('http://localhost:5000/childs', child).subscribe(_ => {
-        this.getChildren(page);
+        this.getChildren(page, pageSize);
       })
     }
 
-    public deleteChildData(childId: string, page: number) {
+    public deleteChildData(childId: string, page: number, pageSize: number) {
       this.http.delete(`http://localhost:5000/childs/${childId}`).subscribe(_=> {
-        this.getChildren(page);
+        this.getChildren(page, pageSize);
       })
     }
   }
