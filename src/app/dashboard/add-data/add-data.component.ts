@@ -25,15 +25,16 @@ export class AddDataComponent implements OnInit {
     this.addChildForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       birthDate: [null, [Validators.required, this.minAgeValidator()]],
-      kindergardenId: ['', Validators.required]
+      kindergardenId: ['', Validators.required],
+      registrationDate: ['']
     })
   }
 
   onSubmit() {
     if (this.addChildForm.valid) {
+      this.addChildForm.get('registrationDate')?.setValue(new Date())
       this.backendService.addChildData(this.addChildForm.value, this.currentPage, this.pageSize);
       this.openSnackbar(this.addChildForm.value)
-
       this.addChildForm.reset();
       Object.keys(this.addChildForm.controls).forEach(key => {
         this.addChildForm.get(key)?.setErrors(null);

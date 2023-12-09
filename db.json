@@ -1,12 +1,6 @@
 {
   "childs": [
     {
-      "id": "_ij700m",
-      "name": "Melanie Hollunder 2",
-      "birthDate": "2020-07-04",
-      "kindergardenId": 3
-    },
-    {
       "id": "_iL77oo",
       "name": "Viktor Sachs 3",
       "birthDate": "2022-06-04",
@@ -197,6 +191,27 @@
       "birthDate": "2020-11-08T23:00:00.000Z",
       "kindergardenId": 4,
       "id": "wY7An3u"
+    },
+    {
+      "name": "Testkind",
+      "birthDate": "2022-12-01T23:00:00.000Z",
+      "kindergardenId": 1,
+      "registrationDate": "12/9/2023",
+      "id": "vWc2-Pt"
+    },
+    {
+      "name": "testkind1",
+      "birthDate": "2022-11-30T23:00:00.000Z",
+      "kindergardenId": 1,
+      "registrationDate": null,
+      "id": "8GV86gC"
+    },
+    {
+      "name": "asdf",
+      "birthDate": "2021-12-19T23:00:00.000Z",
+      "kindergardenId": 2,
+      "registrationDate": "12/9/2023",
+      "id": "pXNGGLH"
     }
   ],
   "kindergardens": [

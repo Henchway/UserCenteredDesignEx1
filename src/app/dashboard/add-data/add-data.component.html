@@ -32,10 +32,14 @@
     <mat-select formControlName="kindergardenId">
       <mat-option value="" disabled>Bitte auswählen</mat-option>
       <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.id">
-        {{kindergarden.name}}, {{kindergarden.address}}</mat-option>
+        {{ kindergarden.name }}, {{ kindergarden.address }}
+      </mat-option>
     </mat-select>
     <mat-error *ngIf="addChildForm.get('kindergardenId')?.hasError('required')">This field is required!</mat-error>
   </mat-form-field>
+
+  <input type="hidden" formControlName="registrationDate">
+
 
   <button mat-button type="submit" class="form-button">Erfassen</button>
 </form>
