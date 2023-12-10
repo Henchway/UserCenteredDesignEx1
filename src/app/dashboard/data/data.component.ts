@@ -8,6 +8,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ChildResponse} from "../../shared/interfaces/Child";
 import {from} from "rxjs";
 import {Kindergarden} from "../../shared/interfaces/Kindergarden";
+import {Router} from "@angular/router";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-data',
@@ -16,7 +18,7 @@ import {Kindergarden} from "../../shared/interfaces/Kindergarden";
 })
 export class DataComponent implements OnInit {
 
-  displayedColumns = [
+  allColumns = [
     "name",
     "kindergardenName",
     "kindergardenAddress",
@@ -26,8 +28,23 @@ export class DataComponent implements OnInit {
     "registrationDate"
   ]
 
+  mediumScreenColumns = [
+    "name",
+    "kindergardenName",
+    "Age",
+    "cancelRegistration"
+  ]
 
-  constructor(public storeService: StoreService, private backendService: BackendService) {
+  smallScreenColumns = [
+    "name",
+    "kindergardenName",
+    "cancelRegistration"
+  ]
+
+  displayedColumns = this.allColumns;
+
+
+  constructor(public storeService: StoreService, private backendService: BackendService, private router: Router, private breakpointObserver: BreakpointObserver) {
   }
 
   initChildSource() {
@@ -57,7 +74,7 @@ export class DataComponent implements OnInit {
     this.backendService.getKindergardens();
     this.storeService.kindergardenLoadEvent.subscribe(data => {
       this.kindergardens = this.storeService.kindergardens.slice();
-      const noFilter: Kindergarden = {name: "Kein Filter", id: -1, address: "", typ: 1, betreiber: ""}
+      const noFilter: Kindergarden = {name: "Kein Filter", id: -1, address: "", typ: 1, betreiber: "", images: [""]}
       this.kindergardens.unshift(noFilter)
       this.kindergardenFilter = this.kindergardens[0];
     })
@@ -77,6 +94,35 @@ export class DataComponent implements OnInit {
   ngOnInit(): void {
     this.initKindergartenSource();
     this.initChildSource();
+    this.setBreakpoints();
+
+  }
+
+  private setBreakpoints() {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).subscribe(result => {
+      if (result.matches) {
+        this.displayedColumns = this.smallScreenColumns
+      }
+    });
+
+    this.breakpointObserver.observe([
+      Breakpoints.Medium,
+    ]).subscribe(result => {
+      if (result.matches) {
+        this.displayedColumns = this.mediumScreenColumns
+      }
+    });
+
+    this.breakpointObserver.observe([
+      Breakpoints.Large, Breakpoints.XLarge,
+    ]).subscribe(result => {
+      if (result.matches) {
+        this.displayedColumns = this.allColumns
+      }
+    });
   }
 
   fetchChildren() {
@@ -107,6 +153,7 @@ export class DataComponent implements OnInit {
   }
 
   public cancelRegistration(childId: string) {
+    this.dataSource = undefined; // <- Forces the loading spinner to appear
     this.backendService.deleteChildData(childId, this.currentPage, this.pageSize);
   }
 
@@ -118,10 +165,5 @@ export class DataComponent implements OnInit {
       this.dataSource!.filter = ""
     }
   }
-
 }
 
-
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}

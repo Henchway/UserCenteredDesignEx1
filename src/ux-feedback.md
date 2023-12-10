@@ -16,6 +16,8 @@
   * The navigation buttons currently aren't really apparent that they're part of a menu, they're somewhat disappearing in the background.
 * Accessibility: Alt attribute
   * The Kindergarden image does not have an 'alt' attribute
+* Links
+  * The "Kindergarden-App" title or the image or ideally both should link to the dashboard. I caught myself clicking on them countless times to navigate to the dashboard.
 
 
 

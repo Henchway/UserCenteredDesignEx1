@@ -20,6 +20,13 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSortModule} from '@angular/material/sort';
+import { KindergardenDetailComponent } from './dashboard/kindergarden-detail/kindergarden-detail.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
+import {MatProgressSpinner, MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -30,6 +37,7 @@ import {MatSortModule} from '@angular/material/sort';
     DataComponent,
     HeaderComponent,
     ButtonComponent,
+    KindergardenDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +56,12 @@ import {MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatToolbarModule,
     MatSortModule,
+    MatCardModule,
+    MatStepperModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

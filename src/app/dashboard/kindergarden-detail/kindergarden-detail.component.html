@@ -1,0 +1,19 @@
+<mat-card *ngIf="kindergarden">
+  <mat-card-header>
+    <mat-card-title>{{ kindergarden.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Adresse: {{ kindergarden.address }}</p>
+    <p>Betreiber: {{ kindergarden.betreiber }}</p>
+    <p>Typ: {{ Typ[kindergarden.typ] | titlecase }}</p>
+
+    <mat-horizontal-stepper linear>
+      <mat-step *ngFor="let image of kindergarden.images">
+        <ng-template matStepLabel>Bild {{ kindergarden.images.indexOf(image) + 1 }}</ng-template>
+        <div class="image-container">
+          <img class="kindergarden-image" [src]="image"/>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card-content>
+</mat-card>

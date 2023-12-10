@@ -37,4 +37,9 @@ export class StoreService {
     this._children = value;
     this.childLoadEvent.emit()
   }
+
+  findKindergardenById(id: string): Kindergarden | undefined {
+    return this._kindergardens.find(x => x.id.toString() === id)
+  }
+
 }

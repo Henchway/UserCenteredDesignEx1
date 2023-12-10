@@ -20,6 +20,10 @@ export class BackendService {
     });
   }
 
+  public findKindergardenbyId(id: string) {
+    return this.http.get<Kindergarden>(`http://localhost:5000/kindergardens/${id}`);
+  }
+
   public getChildren(page: number, pageSize: number) {
     this.http.get<ChildResponse[]>(`http://localhost:5000/childs?_expand=kindergarden&_page=${page + 1}&_limit=${pageSize}`,
       {observe: 'response'}).subscribe(data => {

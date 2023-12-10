@@ -4,251 +4,154 @@
       "id": "_iL77oo",
       "name": "Viktor Sachs 3",
       "birthDate": "2022-06-04",
+      "registrationDate": "12/9/2023",
       "kindergardenId": 4
     },
     {
       "id": "_iL790m",
       "name": "Emily Nilson 4",
       "birthDate": "2019-01-04",
+      "registrationDate": "12/9/2023",
       "kindergardenId": 2
     },
     {
       "id": "_iL790m",
       "name": "Tom Reiner 5",
       "birthDate": "2019-01-04",
+      "registrationDate": "12/9/2023",
       "kindergardenId": 2
     },
     {
       "id": "_iL790m",
       "name": "Michael Mittner 6",
       "birthDate": "2019-01-04",
+      "registrationDate": "12/9/2023",
       "kindergardenId": 2
     },
     {
       "id": "_iL790m",
       "name": "Nikolaus Polarius 7",
       "birthDate": "2019-01-04",
+      "registrationDate": "12/9/2023",
       "kindergardenId": 2
     },
     {
       "name": "Paulus Fensterl 8",
       "kindergardenId": 2,
       "birthDate": "2023-09-28",
+      "registrationDate": "12/9/2023",
       "id": "9py_fwi"
     },
     {
       "name": "Heidi aus den Bergen 9",
       "kindergardenId": 2,
       "birthDate": "2023-10-05",
+      "registrationDate": "12/9/2023",
       "id": "hOHEFCv"
     },
     {
       "name": "Traude Widmann 10",
       "kindergardenId": 2,
       "birthDate": "2023-10-05",
+      "registrationDate": "12/9/2023",
       "id": "cu0_2Ad"
     },
     {
       "name": "Heiner Kühlschrank 11",
       "kindergardenId": 2,
       "birthDate": "2023-10-26",
+      "registrationDate": "12/9/2023",
       "id": "ip57WMS"
     },
     {
       "name": "Nicole Witz 12",
       "kindergardenId": 3,
       "birthDate": "2023-10-13",
+      "registrationDate": "12/9/2023",
       "id": "JmbNaBH"
     },
     {
       "name": "Bastian Witsch 13",
       "kindergardenId": 3,
       "birthDate": "2023-10-13",
+      "registrationDate": "12/9/2023",
       "id": "hlQAqAD"
     },
     {
       "name": "ysdf",
       "kindergardenId": 1,
       "birthDate": "2023-11-21",
+      "registrationDate": "12/9/2023",
       "id": "ogY7YME"
     },
     {
       "name": "Thomas",
       "kindergardenId": 2,
       "birthDate": "2023-11-04T23:00:00.000Z",
+      "registrationDate": "12/9/2023",
       "id": "0OYBc3r"
-    },
-    {
-      "name": "asdfasdf",
-      "kindergardenId": 4,
-      "birthDate": "2023-11-20T23:00:00.000Z",
-      "id": "Brg6OU2"
-    },
-    {
-      "name": "jgjh",
-      "kindergardenId": 2,
-      "birthDate": "2023-11-21T23:00:00.000Z",
-      "id": "S3XVbVa"
-    },
-    {
-      "name": "sdfg",
-      "kindergardenId": 2,
-      "birthDate": "2023-11-14T23:00:00.000Z",
-      "id": "U2M22vh"
-    },
-    {
-      "name": "vdd",
-      "birthDate": "2016-03-01T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "STHOhFU"
-    },
-    {
-      "name": "asdf",
-      "birthDate": "2022-10-31T23:00:00.000Z",
-      "kindergardenId": 1,
-      "id": "VOYWGaI"
-    },
-    {
-      "name": "ygdfg",
-      "birthDate": "2021-10-31T23:00:00.000Z",
-      "kindergardenId": 1,
-      "id": "AxaOqI0"
-    },
-    {
-      "name": "asdf",
-      "birthDate": "2021-11-03T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "IisSKvu"
-    },
-    {
-      "name": "asdf123",
-      "birthDate": "2021-11-15T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "WS0Z5Id"
-    },
-    {
-      "name": "e4txg",
-      "birthDate": "2021-11-10T23:00:00.000Z",
-      "kindergardenId": 3,
-      "id": "PMSbZBl"
-    },
-    {
-      "name": "1231",
-      "birthDate": "2021-11-13T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "O8UHI0z"
-    },
-    {
-      "name": "asfdw",
-      "birthDate": "2021-11-02T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "475Z1tB"
-    },
-    {
-      "name": "asdf",
-      "birthDate": "2021-11-03T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "0-gpYsA"
-    },
-    {
-      "name": "asdf",
-      "birthDate": "2022-11-03T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "iKDR-kv"
-    },
-    {
-      "name": "gsdg",
-      "birthDate": "2022-11-02T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "-Hea2kw"
-    },
-    {
-      "name": "dfg",
-      "birthDate": "2012-12-06T23:00:00.000Z",
-      "kindergardenId": 1,
-      "id": "VIVZjH8"
-    },
-    {
-      "name": "asdf3",
-      "birthDate": "2021-11-08T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "dUbjn_8"
-    },
-    {
-      "name": "1231",
-      "birthDate": "2021-12-21T23:00:00.000Z",
-      "kindergardenId": 1,
-      "id": "sCG1P4L"
-    },
-    {
-      "name": "Thaks",
-      "birthDate": "2021-11-16T23:00:00.000Z",
-      "kindergardenId": 2,
-      "id": "f6nm0EJ"
-    },
-    {
-      "name": "asdf",
-      "birthDate": "2020-11-08T23:00:00.000Z",
-      "kindergardenId": 4,
-      "id": "wY7An3u"
-    },
-    {
-      "name": "Testkind",
-      "birthDate": "2022-12-01T23:00:00.000Z",
-      "kindergardenId": 1,
-      "registrationDate": "12/9/2023",
-      "id": "vWc2-Pt"
-    },
-    {
-      "name": "testkind1",
-      "birthDate": "2022-11-30T23:00:00.000Z",
-      "kindergardenId": 1,
-      "registrationDate": null,
-      "id": "8GV86gC"
-    },
-    {
-      "name": "asdf",
-      "birthDate": "2021-12-19T23:00:00.000Z",
-      "kindergardenId": 2,
-      "registrationDate": "12/9/2023",
-      "id": "pXNGGLH"
     }
   ],
   "kindergardens": [
     {
       "id": 1,
-      "name": "Waldorfkindergarden im Zentrum Wiens",
+      "name": "Waldorfkindergarten im Zentrum Wiens",
       "address": "Oleandergasse 21, 1220 Wien",
       "betreiber": "MA 10 - Wiener Kindergärten",
-      "typ": 1
+      "typ": 1,
+      "images": [
+        "/assets/images/kindergarten1.jpg",
+        "/assets/images/kindergarten2.jpg",
+        "/assets/images/kindergarten3.jpg"
+      ]
     },
     {
       "id": 2,
-      "name": "Kindergarden der Karl Schubert Schule für seelenpflegebedürftige Kinder und Jugendliche in Wien",
+      "name": "Kindergarten der Karl Schubert Schule für seelenpflegebedürftige Kinder und Jugendliche in Wien",
       "address": "Kanitzgasse 1-3, 1230 Wien",
       "betreiber": "Verein Karl Schubertschule für Seelenpflege- bedürftige Kinder und Jugendliche in Wien",
-      "typ": 1
+      "typ": 1,
+      "images": [
+        "/assets/images/kindergarten1.jpg",
+        "/assets/images/kindergarten2.jpg",
+        "/assets/images/kindergarten3.jpg"
+      ]
     },
     {
       "id": 3,
-      "name": "Kindergarden der Stadt Wien",
+      "name": "Kindergarten der Stadt Wien",
       "address": "Audorfgasse 20, 1210 Wien",
       "betreiber": "MA 10 - Wiener Kindergärten",
-      "typ": 2
+      "typ": 2,
+      "images": [
+        "/assets/images/kindergarten1.jpg",
+        "/assets/images/kindergarten2.jpg",
+        "/assets/images/kindergarten3.jpg"
+      ]
     },
     {
       "id": 4,
-      "name": "Kindergarden der Stadt Wien",
+      "name": "Kindergarten der Stadt Wien",
       "address": "Moßbachergasse 20-24, 1140 Wien",
       "betreiber": "MA 10 - Wiener Kindergärten",
-      "typ": 2
+      "typ": 2,
+      "images": [
+        "/assets/images/kindergarten1.jpg",
+        "/assets/images/kindergarten2.jpg",
+        "/assets/images/kindergarten3.jpg"
+      ]
     },
     {
       "id": 5,
       "name": "Montessori Kinderhaus Wien 1",
       "address": "Nußdorferstraße 6, 1090 Wien",
       "betreiber": "Montessori Kinderhaus Wien",
-      "typ": 1
+      "typ": 1,
+      "images": [
+        "/assets/images/kindergarten1.jpg",
+        "/assets/images/kindergarten2.jpg",
+        "/assets/images/kindergarten2.jpg"
+      ]
     }
   ]
 }

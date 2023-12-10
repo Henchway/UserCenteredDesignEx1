@@ -1,3 +1,33 @@
 button.active {
     background-color: orange;
 }
+
+.mat-row:hover {
+  background-color: lightgrey;
+}
+
+.kindergarden-filter{
+  width: 40%
+}
+
+@media screen and (max-width: 800px){
+  .shorten-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .shorten-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+  }
+}
+
+
+

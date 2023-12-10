@@ -1,6 +1,27 @@
-<mat-toolbar color="primary" class="flex">
-  <h1>{{ title }}</h1>
-  <img width="500" src={{imagePath}}>&nbsp;&nbsp;
-  <button mat-button [routerLink]="['/dashboard']">Dashboard</button>
-  <button mat-button [routerLink]="['/about']">About</button>
-</mat-toolbar>
+<div class="header-container">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav" mode="over">
+      <mat-nav-list>
+        <a mat-list-item (click)="sidenav.close()" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a mat-list-item (click)="sidenav.close()"  routerLink="/about" routerLinkActive="active">About</a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar color="primary" class="header-line">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1><a routerLink="/" class="home-link">{{ title }}</a></h1>
+      </mat-toolbar>
+
+      <div class="body">
+        <img class="title-image" routerLink="/" src="{{imagePath}}">
+        <div class="main">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
