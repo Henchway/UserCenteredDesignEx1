@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {Kindergarden} from './interfaces/Kindergarden';
-import { ChildResponse} from './interfaces/Child';
-import {BehaviorSubject, from, Observable, of} from "rxjs";
+import {ChildResponse} from './interfaces/Child';
+import {BehaviorSubject, from, Observable, of, Subject} from "rxjs";
 import {BackendService} from "./backend.service";
 
 @Injectable({
@@ -24,6 +24,7 @@ export class StoreService {
   private _children = new BehaviorSubject<ChildResponse[]>([]);
   public childrenTotalCount: number = 0;
   public childrenLoading: boolean = true;
+  public childrenLoadError$ = new Subject<string>();
 
 
   public refreshKindergardens() {
@@ -33,7 +34,7 @@ export class StoreService {
         this.kindergardenLoadEvent.emit();
       },
       error: err => {
-        console.log("Observable emitted an error " + err)
+        console.log("Observable emitted an error " + err.message)
       }
     })
   }
@@ -48,8 +49,9 @@ export class StoreService {
         this.childrenLoading = false
       },
       error: err => {
-        console.log("Observable emitted an error " + err)
+        console.log("Observable emitted an error " + err.message)
         this.childrenLoading = false
+        this.childrenLoadError$.next("Die Liste an Kindern konnte nicht geladen werden, bitte versuchen Sie es später erneut.");
       }
     })
   }
@@ -58,8 +60,8 @@ export class StoreService {
     return this._kindergardens;
   }
 
-  getChildren(pageNumber: number, pageSize: number, refresh: boolean): Observable<ChildResponse[]> {
-    if (this._children.getValue().length === 0 || refresh) {
+  getChildren(pageNumber: number, pageSize: number): Observable<ChildResponse[]> {
+    if (this._children.getValue().length === 0) {
       this.refreshChildren(pageNumber, pageSize)
     }
     return this._children.asObservable();

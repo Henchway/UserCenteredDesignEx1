@@ -9,14 +9,14 @@
 
     <mat-sidenav-content>
       <mat-toolbar color="primary" class="header-line">
-        <button mat-icon-button (click)="sidenav.toggle()">
+        <button mat-icon-button aria-label="Menü" (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
         <h1><a routerLink="/" class="home-link">{{ title }}</a></h1>
       </mat-toolbar>
 
       <div class="body">
-        <img class="title-image" routerLink="/" src="{{imagePath}}">
+        <img class="title-image" alt="Kindergarten Bild" routerLink="/" src="{{imagePath}}">
         <div class="main">
           <router-outlet></router-outlet>
         </div>

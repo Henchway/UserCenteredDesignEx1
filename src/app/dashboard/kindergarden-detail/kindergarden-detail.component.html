@@ -11,7 +11,7 @@
       <mat-step *ngFor="let image of kindergarden.images">
         <ng-template matStepLabel>Bild {{ kindergarden.images.indexOf(image) + 1 }}</ng-template>
         <div class="image-container">
-          <img class="kindergarden-image" [src]="image"/>
+          <img class="kindergarden-image" alt="Kindergarten Beispiel Foto" [src]="image"/>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

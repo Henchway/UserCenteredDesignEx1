@@ -21,7 +21,18 @@
 
 .title-image {
   max-height: 100%;
-  max-width: 40%;
+  max-width: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .title-image {
+    max-width: 70%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .title-image {
+    max-width: 90%;
+  }
 }
 
 
@@ -42,11 +53,12 @@
   align-items: center;
   background-color: white;
 }
+
 .main {
   width: 95%;
 }
 
-.home-link{
+.home-link {
   color: inherit;
 }
 

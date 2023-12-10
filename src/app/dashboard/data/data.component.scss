@@ -6,6 +6,11 @@ button.active {
   background-color: lightgrey;
 }
 
+.children-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .kindergarden-filter{
   width: 40%

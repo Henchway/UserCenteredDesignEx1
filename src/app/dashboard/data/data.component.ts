@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {BackendService} from 'src/app/shared/backend.service';
 import {CHILDREN_PER_PAGE} from 'src/app/shared/constants';
 import {StoreService} from 'src/app/shared/store.service';
@@ -8,6 +18,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ChildResponse} from "../../shared/interfaces/Child";
 import {Kindergarden} from "../../shared/interfaces/Kindergarden";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {MatSnackBar} from "@angular/material/snack-bar";
+
 
 @Component({
   selector: 'app-data',
@@ -22,14 +34,14 @@ export class DataComponent implements OnInit {
     "kindergardenAddress",
     "age",
     "birthDate",
-    "cancelRegistration",
-    "registrationDate"
+    "registrationDate",
+    "cancelRegistration"
   ]
 
   mediumScreenColumns = [
     "name",
     "kindergardenName",
-    "Age",
+    "age",
     "cancelRegistration"
   ]
 
@@ -39,17 +51,40 @@ export class DataComponent implements OnInit {
     "cancelRegistration"
   ]
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   displayedColumns = this.allColumns;
+  dataSource!: MatTableDataSource<ChildResponse>;
+  kindergardens?: Kindergarden[];
+  @Input() currentPage!: number;
+  @Input() pageSize!: number;
+  @Output() selectPageEvent = new EventEmitter<number>();
+  @Output() setPageSizeEvent = new EventEmitter<number>();
+  kindergardenFilter?: Kindergarden;
 
+  constructor(public storeService: StoreService,
+              private backendService: BackendService,
+              private breakpointObserver: BreakpointObserver,
+              private snackBar: MatSnackBar) {
 
-  constructor(public storeService: StoreService, private backendService: BackendService, private breakpointObserver: BreakpointObserver) {
   }
 
+  ngOnInit(): void {
+    this.initKindergartenSource();
+    this.initChildSource();
+    this.setBreakpoints();
+    this.storeService.childrenLoadError$.subscribe(err => {
+      this.snackBar.open(err, "OK", {duration: 8000})
+    })
+
+  }
+
+
+
   initChildSource() {
-    this.storeService.getChildren(this.currentPage, this.pageSize, false)
+    this.storeService.getChildren(this.currentPage, this.pageSize)
       .subscribe({
         next: value => {
-          console.log(value)
           this.dataSource = new MatTableDataSource(value);
           this.dataSource.sortingDataAccessor = (item, property) => {
             switch (property) {
@@ -59,11 +94,12 @@ export class DataComponent implements OnInit {
                 return item[property];
             }
           }
-          this.dataSource!.sort = this.sort
           this.dataSource.filterPredicate = (data: ChildResponse, filter: string) => {
             return data.kindergardenId.toString().includes(filter)
           }
           this.filterHandler(this.kindergardenFilter)
+          console.log(this.sort)
+          this.dataSource.sort = this.sort
         }
       })
   }
@@ -80,23 +116,6 @@ export class DataComponent implements OnInit {
     })
   }
 
-
-  dataSource?: MatTableDataSource<ChildResponse>;
-  kindergardens?: Kindergarden[];
-  @ViewChild(MatSort) sort!: MatSort;
-  @Input() currentPage!: number;
-  @Input() pageSize!: number;
-  @Output() selectPageEvent = new EventEmitter<number>();
-  @Output() setPageSizeEvent = new EventEmitter<number>();
-  kindergardenFilter?: Kindergarden;
-
-
-  ngOnInit(): void {
-    this.initKindergartenSource();
-    this.initChildSource();
-    this.setBreakpoints();
-
-  }
 
   private setBreakpoints() {
     this.breakpointObserver.observe([
@@ -135,6 +154,7 @@ export class DataComponent implements OnInit {
     }
     return age;
   }
+
 
   setPaginatorPage(event: PageEvent) {
     this.selectPageEvent.emit(event.pageIndex)
