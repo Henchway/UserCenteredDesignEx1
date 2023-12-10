@@ -40,7 +40,6 @@ export class StoreService {
   }
 
   public refreshChildren(pageNumber: number, pageSize: number) {
-    console.log("refreshing children")
     this.childrenLoading = true;
     this.backendService.getChildren(pageNumber, pageSize).subscribe({
       next: value => {

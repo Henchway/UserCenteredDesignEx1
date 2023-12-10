@@ -98,7 +98,6 @@ export class DataComponent implements OnInit {
             return data.kindergardenId.toString().includes(filter)
           }
           this.filterHandler(this.kindergardenFilter)
-          console.log(this.sort)
           this.dataSource.sort = this.sort
         }
       })
