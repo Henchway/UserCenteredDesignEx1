@@ -33,11 +33,15 @@ export class AddDataComponent implements OnInit {
   onSubmit() {
     if (this.addChildForm.valid) {
       this.addChildForm.get('registrationDate')?.setValue(new Date())
-      this.backendService.addChildData(this.addChildForm.value, this.currentPage, this.pageSize);
-      this.openSnackbar(this.addChildForm.value)
-      this.addChildForm.reset();
-      Object.keys(this.addChildForm.controls).forEach(key => {
-        this.addChildForm.get(key)?.setErrors(null);
+      this.backendService.addChildData(this.addChildForm.value, this.currentPage, this.pageSize).subscribe({
+        next: () => {
+          this.openSnackbar(this.addChildForm.value)
+          this.addChildForm.reset();
+          Object.keys(this.addChildForm.controls).forEach(key => {
+            this.addChildForm.get(key)?.setErrors(null);
+          });
+          this.storeService.refreshChildren(this.currentPage, this.pageSize)
+        }
       });
     }
   }

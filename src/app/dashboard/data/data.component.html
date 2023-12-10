@@ -6,11 +6,11 @@
 </mat-form-field>
 
 
-<mat-spinner class="spinner" *ngIf="!this.dataSource"></mat-spinner>
+<mat-spinner class="spinner" *ngIf="this.storeService.childrenLoading"></mat-spinner>
 
 <table mat-table
-       *ngIf="this.dataSource"
-       [dataSource]="this.dataSource"
+       *ngIf="!this.storeService.childrenLoading"
+       [dataSource]="this.dataSource!"
        class="mat-elevation-z8"
        matSort
        matSortActive="name"

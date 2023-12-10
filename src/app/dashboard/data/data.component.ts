@@ -6,9 +6,7 @@ import {PageEvent} from "@angular/material/paginator";
 import {MatSort, Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {ChildResponse} from "../../shared/interfaces/Child";
-import {from} from "rxjs";
 import {Kindergarden} from "../../shared/interfaces/Kindergarden";
-import {Router} from "@angular/router";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
@@ -44,39 +42,41 @@ export class DataComponent implements OnInit {
   displayedColumns = this.allColumns;
 
 
-  constructor(public storeService: StoreService, private backendService: BackendService, private router: Router, private breakpointObserver: BreakpointObserver) {
+  constructor(public storeService: StoreService, private backendService: BackendService, private breakpointObserver: BreakpointObserver) {
   }
 
   initChildSource() {
-    this.fetchChildren();
-    this.storeService.childLoadEvent.subscribe(data => {
-      this.dataSource = new MatTableDataSource(this.storeService.children.slice());
-      this.dataSource.sortingDataAccessor = (item, property) => {
-        switch (property) {
-          case 'kindergardenName':
-            return item.kindergarden.name;
-          default: // @ts-ignore
-            return item[property];
+    this.storeService.getChildren(this.currentPage, this.pageSize, false)
+      .subscribe({
+        next: value => {
+          console.log(value)
+          this.dataSource = new MatTableDataSource(value);
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+              case 'kindergardenName':
+                return item.kindergarden.name;
+              default: // @ts-ignore
+                return item[property];
+            }
+          }
+          this.dataSource!.sort = this.sort
+          this.dataSource.filterPredicate = (data: ChildResponse, filter: string) => {
+            return data.kindergardenId.toString().includes(filter)
+          }
+          this.filterHandler(this.kindergardenFilter)
         }
-      };
-      this.dataSource!.sort = this.sort
-
-      // define filter predicate
-      this.dataSource.filterPredicate = (data: ChildResponse, filter: string) => {
-        return data.kindergardenId.toString().includes(filter)
-      }
-
-      this.filterHandler(this.kindergardenFilter)
-    })
+      })
   }
 
   initKindergartenSource() {
-    this.backendService.getKindergardens();
-    this.storeService.kindergardenLoadEvent.subscribe(data => {
-      this.kindergardens = this.storeService.kindergardens.slice();
-      const noFilter: Kindergarden = {name: "Kein Filter", id: -1, address: "", typ: 1, betreiber: "", images: [""]}
-      this.kindergardens.unshift(noFilter)
-      this.kindergardenFilter = this.kindergardens[0];
+    this.storeService.refreshKindergardens();
+    this.storeService.kindergardenLoadEvent.subscribe({
+      next: () => {
+        this.kindergardens = this.storeService.kindergardens.slice()
+        const noFilter: Kindergarden = {name: "Kein Filter", id: -1, address: "", typ: 1, betreiber: "", images: [""]}
+        this.kindergardens.unshift(noFilter)
+        this.kindergardenFilter = this.kindergardens[0];
+      }
     })
   }
 
@@ -125,10 +125,6 @@ export class DataComponent implements OnInit {
     });
   }
 
-  fetchChildren() {
-    this.backendService.getChildren(this.currentPage, this.pageSize);
-  }
-
   getAge(birthDate: string) {
     var today = new Date();
     var birthDateTimestamp = new Date(birthDate);
@@ -145,7 +141,7 @@ export class DataComponent implements OnInit {
     this.setPageSizeEvent.emit(event.pageSize)
     this.currentPage = event.pageIndex
     this.pageSize = event.pageSize
-    this.fetchChildren()
+    this.storeService.refreshChildren(this.currentPage, this.pageSize);
   }
 
   public getTotalChildCount() {
@@ -153,8 +149,11 @@ export class DataComponent implements OnInit {
   }
 
   public cancelRegistration(childId: string) {
-    this.dataSource = undefined; // <- Forces the loading spinner to appear
-    this.backendService.deleteChildData(childId, this.currentPage, this.pageSize);
+    // this.dataSource = undefined; // <- Forces the loading spinner to appear
+    this.backendService.deleteChildData(childId, this.currentPage, this.pageSize)
+      .subscribe(() => {
+        this.storeService.refreshChildren(this.currentPage, this.pageSize)
+      })
   }
 
 

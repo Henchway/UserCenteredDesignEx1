@@ -1,23 +1,18 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Kindergarden} from './interfaces/Kindergarden';
-import {StoreService} from './store.service';
 import {Child, ChildResponse} from './interfaces/Child';
-import {CHILDREN_PER_PAGE} from './constants';
-import {MatSort, Sort} from "@angular/material/sort";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
 
-  constructor(private http: HttpClient, private storeService: StoreService) {
+  constructor(private http: HttpClient) {
   }
 
   public getKindergardens() {
-    this.http.get<Kindergarden[]>('http://localhost:5000/kindergardens').subscribe(data => {
-      this.storeService.kindergardens = data;
-    });
+    return this.http.get<Kindergarden[]>('http://localhost:5000/kindergardens')
   }
 
   public findKindergardenbyId(id: string) {
@@ -25,22 +20,14 @@ export class BackendService {
   }
 
   public getChildren(page: number, pageSize: number) {
-    this.http.get<ChildResponse[]>(`http://localhost:5000/childs?_expand=kindergarden&_page=${page + 1}&_limit=${pageSize}`,
-      {observe: 'response'}).subscribe(data => {
-      this.storeService.children = data.body!;
-      this.storeService.childrenTotalCount = Number(data.headers.get('X-Total-Count'));
-    });
+    return this.http.get<ChildResponse[]>(`http://localhost:5000/childs?_expand=kindergarden&_page=${page + 1}&_limit=${pageSize}`, {observe: 'response'})
   }
 
   public addChildData(child: Child, page: number, pageSize: number) {
-    this.http.post('http://localhost:5000/childs', child).subscribe(_ => {
-      this.getChildren(page, pageSize);
-    })
+    return this.http.post('http://localhost:5000/childs', child)
   }
 
   public deleteChildData(childId: string, page: number, pageSize: number) {
-    this.http.delete(`http://localhost:5000/childs/${childId}`).subscribe(_ => {
-      this.getChildren(page, pageSize);
-    })
+    return this.http.delete(`http://localhost:5000/childs/${childId}`)
   }
 }

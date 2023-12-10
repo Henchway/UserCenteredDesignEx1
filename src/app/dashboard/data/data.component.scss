@@ -6,6 +6,7 @@ button.active {
   background-color: lightgrey;
 }
 
+
 .kindergarden-filter{
   width: 40%
 }
@@ -17,6 +18,9 @@ button.active {
     text-overflow: ellipsis;
     max-width: 300px;
   }
+  .kindergarden-filter{
+    width: 100%
+  }
 }
 
 
@@ -26,6 +30,9 @@ button.active {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100px;
+  }
+  .kindergarden-filter{
+    width: 100%
   }
 }
 
