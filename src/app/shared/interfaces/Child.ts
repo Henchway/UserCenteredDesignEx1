@@ -8,6 +8,7 @@ export interface Child {
 }
 
 export interface ChildResponse {
+  readonly [key: string]: any;
   id: string;
   name: string;
   birthDate: string,

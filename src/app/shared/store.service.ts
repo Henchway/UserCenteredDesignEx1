@@ -3,6 +3,7 @@ import {Kindergarden} from './interfaces/Kindergarden';
 import {ChildResponse} from './interfaces/Child';
 import {BehaviorSubject, from, Observable, of, Subject} from "rxjs";
 import {BackendService} from "./backend.service";
+import {Filter} from "./interfaces/Filter";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,6 @@ export class StoreService {
 
   constructor(private backendService: BackendService) {
   }
-
-  // ngOnInit(): void {
-  //   this.refreshKindergardens()
-  // }
-
 
   private _kindergardens: Kindergarden[] = [];
   private _children = new BehaviorSubject<ChildResponse[]>([]);
@@ -39,9 +35,9 @@ export class StoreService {
     })
   }
 
-  public refreshChildren(pageNumber: number, pageSize: number) {
+  public refreshChildren(pageNumber: number, pageSize: number, filterValue?: string, sort?: string, sortDir?: string) {
     this.childrenLoading = true;
-    this.backendService.getChildren(pageNumber, pageSize).subscribe({
+    this.backendService.getChildren(pageNumber, pageSize, filterValue, sort, sortDir).subscribe({
       next: value => {
         this._children.next(value.body!)
         this.childrenTotalCount = Number(value.headers.get('X-Total-Count'));
@@ -59,9 +55,9 @@ export class StoreService {
     return this._kindergardens;
   }
 
-  getChildren(pageNumber: number, pageSize: number): Observable<ChildResponse[]> {
-    if (this._children.getValue().length === 0) {
-      this.refreshChildren(pageNumber, pageSize)
+  getChildren(pageNumber: number, pageSize: number, filter?: string, sort?: string, sortDir?: string): Observable<ChildResponse[]> {
+    if (this._children.getValue().length === 0 || filter || sort) {
+      this.refreshChildren(pageNumber, pageSize, filter, sort, sortDir)
     }
     return this._children.asObservable();
   }

@@ -1,19 +1,15 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import {BackendService} from 'src/app/shared/backend.service';
-import {CHILDREN_PER_PAGE} from 'src/app/shared/constants';
 import {StoreService} from 'src/app/shared/store.service';
 import {PageEvent} from "@angular/material/paginator";
-import {MatSort, Sort} from "@angular/material/sort";
+import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {ChildResponse} from "../../shared/interfaces/Child";
 import {Kindergarden} from "../../shared/interfaces/Kindergarden";
@@ -62,6 +58,7 @@ export class DataComponent implements OnInit {
   @Output() setPageSizeEvent = new EventEmitter<number>();
   kindergardenFilter?: Kindergarden;
 
+
   constructor(public storeService: StoreService,
               private backendService: BackendService,
               private breakpointObserver: BreakpointObserver,
@@ -71,7 +68,7 @@ export class DataComponent implements OnInit {
 
   ngOnInit(): void {
     this.initKindergartenSource();
-    this.initChildSource();
+    this.fetchChildSource();
     this.setBreakpoints();
     this.storeService.childrenLoadError$.subscribe(err => {
       this.snackBar.open(err, "OK", {duration: 8000})
@@ -81,8 +78,8 @@ export class DataComponent implements OnInit {
 
 
 
-  initChildSource() {
-    this.storeService.getChildren(this.currentPage, this.pageSize)
+  fetchChildSource() {
+    this.storeService.getChildren(this.currentPage, this.pageSize, this.kindergardenFilter?.id.toString())
       .subscribe({
         next: value => {
           this.dataSource = new MatTableDataSource(value);
@@ -90,14 +87,10 @@ export class DataComponent implements OnInit {
             switch (property) {
               case 'kindergardenName':
                 return item.kindergarden.name;
-              default: // @ts-ignore
+              default:
                 return item[property];
             }
           }
-          this.dataSource.filterPredicate = (data: ChildResponse, filter: string) => {
-            return data.kindergardenId.toString().includes(filter)
-          }
-          this.filterHandler(this.kindergardenFilter)
           this.dataSource.sort = this.sort
         }
       })
@@ -160,7 +153,7 @@ export class DataComponent implements OnInit {
     this.setPageSizeEvent.emit(event.pageSize)
     this.currentPage = event.pageIndex
     this.pageSize = event.pageSize
-    this.storeService.refreshChildren(this.currentPage, this.pageSize);
+    this.fetchChildSource()
   }
 
   public getTotalChildCount() {
@@ -168,8 +161,7 @@ export class DataComponent implements OnInit {
   }
 
   public cancelRegistration(childId: string) {
-    // this.dataSource = undefined; // <- Forces the loading spinner to appear
-    this.backendService.deleteChildData(childId, this.currentPage, this.pageSize)
+    this.backendService.deleteChildData(childId)
       .subscribe(() => {
         this.storeService.refreshChildren(this.currentPage, this.pageSize)
       })
@@ -182,6 +174,7 @@ export class DataComponent implements OnInit {
     } else {
       this.dataSource!.filter = ""
     }
+    this.fetchChildSource()
   }
 }
 

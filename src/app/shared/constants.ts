@@ -1,1 +1,1 @@
-export const CHILDREN_PER_PAGE = 2;
+export const BACKEND_URL = "http://localhost:5000"
