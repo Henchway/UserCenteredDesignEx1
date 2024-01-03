@@ -78,13 +78,6 @@
       "id": "hlQAqAD"
     },
     {
-      "name": "ysdf",
-      "kindergardenId": 1,
-      "birthDate": "2023-11-21",
-      "registrationDate": "12/9/2023",
-      "id": "ogY7YME"
-    },
-    {
       "name": "Thomas",
       "kindergardenId": 2,
       "birthDate": "2023-11-04T23:00:00.000Z",
@@ -92,53 +85,11 @@
       "id": "0OYBc3r"
     },
     {
-      "name": "tstkind",
-      "birthDate": "2021-12-03T23:00:00.000Z",
-      "kindergardenId": 4,
-      "registrationDate": "2023-12-10T21:12:53.455Z",
-      "id": "Q3Db48-"
-    },
-    {
-      "name": "tst",
-      "birthDate": "2021-12-17T23:00:00.000Z",
-      "kindergardenId": 4,
-      "registrationDate": "2023-12-10T21:13:18.320Z",
-      "id": "Nm9YuQn"
-    },
-    {
-      "name": "test",
-      "birthDate": "2022-01-02T23:00:00.000Z",
-      "kindergardenId": 1,
-      "registrationDate": "2024-01-03T10:32:32.865Z",
-      "id": "ZyC-sIs"
-    },
-    {
-      "name": "aaaaaa",
-      "birthDate": "2021-11-13T23:00:00.000Z",
-      "kindergardenId": 1,
-      "registrationDate": "2024-01-03T10:32:54.047Z",
-      "id": "TvWxsTb"
-    },
-    {
-      "name": "aaaaaaaaaa",
-      "birthDate": "2022-01-02T23:00:00.000Z",
-      "kindergardenId": 1,
-      "registrationDate": "2024-01-03T10:33:11.354Z",
-      "id": "l8JErAM"
-    },
-    {
       "name": "Aaaaa",
       "birthDate": "2021-12-31T23:00:00.000Z",
       "kindergardenId": 1,
       "registrationDate": "2024-01-03T10:51:12.868Z",
       "id": "1sGpvRw"
-    },
-    {
-      "name": "Zzzzz",
-      "birthDate": "2021-01-02T23:00:00.000Z",
-      "kindergardenId": 2,
-      "registrationDate": "2024-01-03T10:51:40.597Z",
-      "id": "XblOyaE"
     }
   ],
   "kindergardens": [

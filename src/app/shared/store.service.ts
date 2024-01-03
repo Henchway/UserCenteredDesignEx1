@@ -56,9 +56,7 @@ export class StoreService {
   }
 
   getChildren(pageNumber: number, pageSize: number, filter?: string, sort?: string, sortDir?: string): Observable<ChildResponse[]> {
-    if (this._children.getValue().length === 0 || filter || sort) {
-      this.refreshChildren(pageNumber, pageSize, filter, sort, sortDir)
-    }
+    this.refreshChildren(pageNumber, pageSize, filter, sort, sortDir)
     return this._children.asObservable();
   }
 

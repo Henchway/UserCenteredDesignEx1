@@ -92,7 +92,6 @@ export class DataComponent implements OnInit {
           }
         },
         complete: () => {
-          console.log(this.sort)
           this.dataSource.sort = this.sort
         }
       })
@@ -139,10 +138,10 @@ export class DataComponent implements OnInit {
   }
 
   getAge(birthDate: string) {
-    var today = new Date();
-    var birthDateTimestamp = new Date(birthDate);
-    var age = today.getFullYear() - birthDateTimestamp.getFullYear();
-    var m = today.getMonth() - birthDateTimestamp.getMonth();
+    const today = new Date();
+    const birthDateTimestamp = new Date(birthDate);
+    let  age = today.getFullYear() - birthDateTimestamp.getFullYear();
+    const m = today.getMonth() - birthDateTimestamp.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDateTimestamp.getDate())) {
       age--;
     }
@@ -162,17 +161,13 @@ export class DataComponent implements OnInit {
     return this.storeService.childrenTotalCount;
   }
 
-  public cancelRegistration(childId: string) {
+  public cancelRegistration(childId: string, childName: string) {
     this.backendService.deleteChildData(childId)
       .subscribe(() => {
-        this.storeService.refreshChildren(this.currentPage, this.pageSize)
+        this.fetchChildSource()
+        this.snackBar.open(`${childName} wurde aus dem System gelöscht.`, "OK")
       })
   }
-
-  changeSorting() {
-    this.fetchChildSource()
-  }
-
 
   filterHandler(element?: Kindergarden) {
     if (element && element.id != -1) {

@@ -47,7 +47,7 @@ export class AddDataComponent implements OnInit {
   }
 
   openSnackbar(formGroupValue: any) {
-    this.snackBar.open(`${formGroupValue.name} has been registered.`, "OK")
+    this.snackBar.open(`${formGroupValue.name} wurde im System registriert.`, "OK")
   }
 
 
