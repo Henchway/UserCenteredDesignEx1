@@ -34,7 +34,7 @@ export class BackendService {
   }
 
   public addChildData(child: Child) {
-    return this.http.post('${BACKEND_URL}/childs', child)
+    return this.http.post(`${BACKEND_URL}/childs`, child)
   }
 
   public deleteChildData(childId: string) {

@@ -77,9 +77,8 @@ export class DataComponent implements OnInit {
   }
 
 
-
   fetchChildSource() {
-    this.storeService.getChildren(this.currentPage, this.pageSize, this.kindergardenFilter?.id.toString())
+    this.storeService.getChildren(this.currentPage, this.pageSize, this.kindergardenFilter?.id.toString(), this.sort?.active, this.sort?.direction)
       .subscribe({
         next: value => {
           this.dataSource = new MatTableDataSource(value);
@@ -91,6 +90,9 @@ export class DataComponent implements OnInit {
                 return item[property];
             }
           }
+        },
+        complete: () => {
+          console.log(this.sort)
           this.dataSource.sort = this.sort
         }
       })
@@ -165,6 +167,10 @@ export class DataComponent implements OnInit {
       .subscribe(() => {
         this.storeService.refreshChildren(this.currentPage, this.pageSize)
       })
+  }
+
+  changeSorting() {
+    this.fetchChildSource()
   }
 
 
