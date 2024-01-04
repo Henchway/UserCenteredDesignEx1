@@ -4,8 +4,8 @@
   <mat-form-field class="form-input-element">
     <mat-label>Name</mat-label>
     <input matInput placeholder="Name" type="input" formControlName="name"/>
-    <mat-error *ngIf="addChildForm.get('name')?.hasError('required')">This field is required!</mat-error>
-    <mat-error *ngIf="addChildForm.get('name')?.hasError('minlength')">Minimum length of 3 characters!</mat-error>
+    <mat-error *ngIf="addChildForm.get('name')?.hasError('required')">Dieses Feld ist erforderlich!</mat-error>
+    <mat-error *ngIf="addChildForm.get('name')?.hasError('minlength')">Der Name muss aus mindestens 3 Zeichen bestehen!</mat-error>
   </mat-form-field>
 
   <mat-form-field class="form-input-element">
@@ -20,7 +20,7 @@
     />
     <mat-datepicker-toggle matIconSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #birthDatePicker></mat-datepicker>
-    <mat-error *ngIf="addChildForm.get('birthDate')?.hasError('required')">This field is required!</mat-error>
+    <mat-error *ngIf="addChildForm.get('birthDate')?.hasError('required')">Dieses Feld ist erforderlich!</mat-error>
     <mat-error
       *ngIf="addChildForm.get('birthDate')?.hasError('dateTooRecent')">
       {{ addChildForm.get('birthDate')?.getError('errorMessage') }}
@@ -35,7 +35,7 @@
         {{ kindergarden.name }}, {{ kindergarden.address }}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="addChildForm.get('kindergardenId')?.hasError('required')">This field is required!</mat-error>
+    <mat-error *ngIf="addChildForm.get('kindergardenId')?.hasError('required')">Dieses Feld ist erforderlich!</mat-error>
   </mat-form-field>
 
   <input type="hidden" formControlName="registrationDate">
