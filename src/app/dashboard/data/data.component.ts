@@ -50,7 +50,7 @@ export class DataComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
   displayedColumns = this.allColumns;
-  dataSource!: MatTableDataSource<ChildResponse>;
+  dataSource: MatTableDataSource<ChildResponse> = new MatTableDataSource<ChildResponse>();
   kindergardens?: Kindergarden[];
   @Input() currentPage!: number;
   @Input() pageSize!: number;
@@ -67,6 +67,15 @@ export class DataComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataSource.sort = this.sort
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'kindergardenName':
+          return item.kindergarden.name;
+        default:
+          return item[property];
+      }
+    }
     this.initKindergartenSource();
     this.fetchChildSource();
     this.setBreakpoints();
@@ -80,16 +89,7 @@ export class DataComponent implements OnInit {
     this.storeService.getChildren(this.currentPage, this.pageSize, this.kindergardenFilter?.id.toString(), this.sort?.active, this.sort?.direction)
       .subscribe({
         next: value => {
-          this.dataSource = new MatTableDataSource(value);
-          this.dataSource.sort = this.sort
-          this.dataSource.sortingDataAccessor = (item, property) => {
-            switch (property) {
-              case 'kindergardenName':
-                return item.kindergarden.name;
-              default:
-                return item[property];
-            }
-          }
+          this.dataSource.data = value
         }
       })
   }
@@ -155,7 +155,7 @@ export class DataComponent implements OnInit {
   }
 
   public getTotalChildCount() {
-    return this.storeService.childrenTotalCount;
+    return this.storeService.childrenTotalCount$;
   }
 
   public cancelRegistration(childId: string, childName: string) {

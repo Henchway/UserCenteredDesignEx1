@@ -8,6 +8,8 @@ https://github.com/Henchway/UserCenteredDesignEx1
   * Content is mixed: "Kindergarden der Stadt Wien"
   * Table headers are German
   * "Kindergarden" is English, Paginator is English
+  * Error messages were mixed German and English
+  * Snackbar popups were mixed German and English
 * Buttons
   * Overall a variety of different button types, often not obvious that they're even buttons.
 * Responsive design: Image Scaling

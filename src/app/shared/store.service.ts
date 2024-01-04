@@ -17,8 +17,8 @@ export class StoreService {
   }
 
   private _kindergardens: Kindergarden[] = [];
-  private _children = new BehaviorSubject<ChildResponse[]>([]);
-  public childrenTotalCount: number = 0;
+  private children$ = new BehaviorSubject<ChildResponse[]>([]);
+  public childrenTotalCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public childrenLoading: boolean = true;
   public childrenLoadError$ = new Subject<string>();
 
@@ -39,8 +39,8 @@ export class StoreService {
     this.childrenLoading = true;
     this.backendService.getChildren(pageNumber, pageSize, filterValue, sort, sortDir).subscribe({
       next: value => {
-        this._children.next(value.body!)
-        this.childrenTotalCount = Number(value.headers.get('X-Total-Count'));
+        this.children$.next(value.body!)
+        this.childrenTotalCount$.next(Number(value.headers.get('X-Total-Count')));
         this.childrenLoading = false
       },
       error: err => {
@@ -57,7 +57,7 @@ export class StoreService {
 
   getChildren(pageNumber: number, pageSize: number, filter?: string, sort?: string, sortDir?: string): Observable<ChildResponse[]> {
     this.refreshChildren(pageNumber, pageSize, filter, sort, sortDir)
-    return this._children.asObservable();
+    return this.children$.asObservable();
   }
 
 
