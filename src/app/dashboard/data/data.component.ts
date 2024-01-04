@@ -47,7 +47,7 @@ export class DataComponent implements OnInit {
     "cancelRegistration"
   ]
 
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
   displayedColumns = this.allColumns;
   dataSource!: MatTableDataSource<ChildResponse>;
@@ -73,7 +73,6 @@ export class DataComponent implements OnInit {
     this.storeService.childrenLoadError$.subscribe(err => {
       this.snackBar.open(err, "OK", {duration: 8000})
     })
-
   }
 
 
@@ -82,6 +81,7 @@ export class DataComponent implements OnInit {
       .subscribe({
         next: value => {
           this.dataSource = new MatTableDataSource(value);
+          this.dataSource.sort = this.sort
           this.dataSource.sortingDataAccessor = (item, property) => {
             switch (property) {
               case 'kindergardenName':
@@ -90,9 +90,6 @@ export class DataComponent implements OnInit {
                 return item[property];
             }
           }
-        },
-        complete: () => {
-          this.dataSource.sort = this.sort
         }
       })
   }
@@ -140,7 +137,7 @@ export class DataComponent implements OnInit {
   getAge(birthDate: string) {
     const today = new Date();
     const birthDateTimestamp = new Date(birthDate);
-    let  age = today.getFullYear() - birthDateTimestamp.getFullYear();
+    let age = today.getFullYear() - birthDateTimestamp.getFullYear();
     const m = today.getMonth() - birthDateTimestamp.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDateTimestamp.getDate())) {
       age--;
