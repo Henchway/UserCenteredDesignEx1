@@ -41,5 +41,5 @@
   <input type="hidden" formControlName="registrationDate">
 
 
-  <button mat-raised-button color="primary" type="submit" class="form-button">Erfassen</button>
+  <button mat-raised-button color="primary" type="submit" class="form-button" [disabled]="addChildForm.invalid">Erfassen</button>
 </form>
