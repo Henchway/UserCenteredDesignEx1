@@ -4,7 +4,7 @@
   <mat-form-field class="kindergarden-filter">
     <mat-label>Kindergarten-Filter</mat-label>
     <mat-select [(ngModel)]="kindergardenFilter" placeholder="Filter auswählen" (ngModelChange)="filterHandler($event)">
-      <mat-option *ngFor="let option of this.kindergardens" [value]="option">{{ option.name }}</mat-option>
+      <mat-option *ngFor="let option of this.kindergardenFilterOptions" [value]="option">{{ option.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 

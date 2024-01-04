@@ -20,6 +20,10 @@ export class AddDataComponent implements OnInit {
   public addChildForm!: FormGroup;
   @Input() currentPage!: number;
   @Input() pageSize!: number;
+  @Input() sort?: string;
+  @Input() sortDir?: string;
+  @Input() filter?: string;
+
 
   ngOnInit(): void {
     this.addChildForm = this.formBuilder.group({
@@ -40,7 +44,7 @@ export class AddDataComponent implements OnInit {
           Object.keys(this.addChildForm.controls).forEach(key => {
             this.addChildForm.get(key)?.setErrors(null);
           });
-          this.storeService.refreshChildren(this.currentPage, this.pageSize)
+          this.storeService.getChildren(this.currentPage, this.pageSize, this.filter, this.sort, this.sortDir)
         }
       });
     }

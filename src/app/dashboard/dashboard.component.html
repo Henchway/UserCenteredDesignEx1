@@ -1,5 +1,8 @@
-<app-data [pageSize]="pageSize" [currentPage]="currentPage" (selectPageEvent)="setPage($event)" (setPageSizeEvent)="setPageSize($event)"></app-data>
+<app-data [pageSize]="pageSize" [currentPage]="currentPage" (selectPageEvent)="setPage($event)"
+          (setPageSizeEvent)="setPageSize($event)" (setFilterEvent)="setFilter($event)"
+          (setSortDirEvent)="setSortDir($event)" (setSortEvent)="setSort($event)"></app-data>
 <br>
 <app-button [showAddData]="showAddData" (toggleButtonClickEvent)="toggleButtonClicked($event)"></app-button>
-<app-add-data *ngIf="showAddData" [currentPage]="currentPage" [pageSize]="pageSize"></app-add-data>
+<app-add-data *ngIf="showAddData" [currentPage]="currentPage" [pageSize]="pageSize" [sort]="sort" [sortDir]="sortDir"
+              [filter]="filter"></app-add-data>
 

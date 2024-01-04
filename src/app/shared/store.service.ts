@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {Kindergarden} from './interfaces/Kindergarden';
 import {ChildResponse} from './interfaces/Child';
-import {BehaviorSubject, from, Observable, of, Subject} from "rxjs";
+import {BehaviorSubject, filter, from, map, Observable, of, Subject} from "rxjs";
 import {BackendService} from "./backend.service";
 import {Filter} from "./interfaces/Filter";
 
@@ -11,31 +11,30 @@ import {Filter} from "./interfaces/Filter";
 export class StoreService {
 
   @Output() childLoadEvent = new EventEmitter();
-  @Output() kindergardenLoadEvent = new EventEmitter();
 
   constructor(private backendService: BackendService) {
   }
 
-  private _kindergardens: Kindergarden[] = [];
+  public kindergardens$ = new BehaviorSubject<Kindergarden[]>([]);
   private children$ = new BehaviorSubject<ChildResponse[]>([]);
   public childrenTotalCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public childrenLoading: boolean = true;
-  public childrenLoadError$ = new Subject<string>();
 
 
-  public refreshKindergardens() {
+  public getKindergardens() {
     this.backendService.getKindergardens().subscribe({
       next: value => {
-        this._kindergardens = value
-        this.kindergardenLoadEvent.emit();
+        this.kindergardens$.next(value)
       },
       error: err => {
         console.log("Observable emitted an error " + err.message)
+        this.kindergardens$.error("Die Liste an Kindergärten konnte nicht geladen werden, bitte versuchen Sie es später erneut.")
       }
     })
+    return this.kindergardens$
   }
 
-  public refreshChildren(pageNumber: number, pageSize: number, filterValue?: string, sort?: string, sortDir?: string) {
+  public getChildren(pageNumber: number, pageSize: number, filterValue?: string, sort?: string, sortDir?: string) {
     this.childrenLoading = true;
     this.backendService.getChildren(pageNumber, pageSize, filterValue, sort, sortDir).subscribe({
       next: value => {
@@ -46,23 +45,14 @@ export class StoreService {
       error: err => {
         console.log("Observable emitted an error " + err.message)
         this.childrenLoading = false
-        this.childrenLoadError$.next("Die Liste an Kindern konnte nicht geladen werden, bitte versuchen Sie es später erneut.");
+        this.children$.error("Die Liste an Kindern konnte nicht geladen werden, bitte versuchen Sie es später erneut.")
       }
     })
+    return this.children$
   }
 
-  get kindergardens(): Kindergarden[] {
-    return this._kindergardens;
-  }
-
-  getChildren(pageNumber: number, pageSize: number, filter?: string, sort?: string, sortDir?: string): Observable<ChildResponse[]> {
-    this.refreshChildren(pageNumber, pageSize, filter, sort, sortDir)
-    return this.children$.asObservable();
-  }
-
-
-  findKindergardenById(id: string): Kindergarden | undefined {
-    return this._kindergardens.find(x => x.id.toString() === id)
+  findKindergardenById(id: string): Observable<Kindergarden | undefined> {
+    return this.kindergardens$.pipe(map(obj => obj.find(x => x.id.toString() === id) ))
   }
 
 }

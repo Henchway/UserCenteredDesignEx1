@@ -1,4 +1,5 @@
-<mat-card *ngIf="kindergarden">
+
+<mat-card *ngIf="this.storeService.findKindergardenById(this.id) | async as kindergarden">
   <mat-card-header>
     <mat-card-title>{{ kindergarden.name }}</mat-card-title>
   </mat-card-header>

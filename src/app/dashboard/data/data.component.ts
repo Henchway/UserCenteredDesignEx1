@@ -51,11 +51,14 @@ export class DataComponent implements OnInit {
 
   displayedColumns = this.allColumns;
   dataSource: MatTableDataSource<ChildResponse> = new MatTableDataSource<ChildResponse>();
-  kindergardens?: Kindergarden[];
+  kindergardenFilterOptions?: Kindergarden[];
   @Input() currentPage!: number;
   @Input() pageSize!: number;
   @Output() selectPageEvent = new EventEmitter<number>();
   @Output() setPageSizeEvent = new EventEmitter<number>();
+  @Output() setSortEvent = new EventEmitter<string>();
+  @Output() setSortDirEvent = new EventEmitter<string>();
+  @Output() setFilterEvent = new EventEmitter<string>();
   kindergardenFilter?: Kindergarden;
 
 
@@ -79,9 +82,6 @@ export class DataComponent implements OnInit {
     this.initKindergartenSource();
     this.fetchChildSource();
     this.setBreakpoints();
-    this.storeService.childrenLoadError$.subscribe(err => {
-      this.snackBar.open(err, "OK", {duration: 8000})
-    })
   }
 
 
@@ -90,18 +90,26 @@ export class DataComponent implements OnInit {
       .subscribe({
         next: value => {
           this.dataSource.data = value
+        },
+        error: (err) => {
+          this.snackBar.open(err, "OK", {duration: 8000})
         }
       })
+    this.setSortEvent.emit(this.sort.active)
+    this.setSortDirEvent.emit(this.sort.direction)
+    this.setFilterEvent.emit(this.kindergardenFilter?.id.toString())
   }
 
   initKindergartenSource() {
-    this.storeService.refreshKindergardens();
-    this.storeService.kindergardenLoadEvent.subscribe({
-      next: () => {
-        this.kindergardens = this.storeService.kindergardens.slice()
+    this.storeService.getKindergardens().subscribe({
+      next: (value) => {
+        this.kindergardenFilterOptions = value.slice()
         const noFilter: Kindergarden = {name: "Kein Filter", id: -1, address: "", typ: 1, betreiber: "", images: [""]}
-        this.kindergardens.unshift(noFilter)
-        this.kindergardenFilter = this.kindergardens[0];
+        this.kindergardenFilterOptions.unshift(noFilter)
+        this.kindergardenFilter = this.kindergardenFilterOptions[0];
+      },
+      error: (err) => {
+        this.snackBar.open(err, "OK", {duration: 8000})
       }
     })
   }
@@ -152,10 +160,6 @@ export class DataComponent implements OnInit {
     this.currentPage = event.pageIndex
     this.pageSize = event.pageSize
     this.fetchChildSource()
-  }
-
-  public getTotalChildCount() {
-    return this.storeService.childrenTotalCount$;
   }
 
   public cancelRegistration(childId: string, childName: string) {

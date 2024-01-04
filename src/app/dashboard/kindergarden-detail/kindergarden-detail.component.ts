@@ -14,13 +14,13 @@ export class KindergardenDetailComponent implements OnInit {
   id!: string;
   kindergarden?: Kindergarden;
 
-  constructor(private route: ActivatedRoute, private storeService: StoreService, private backendService: BackendService) {
+  constructor(private route: ActivatedRoute, public storeService: StoreService, private backendService: BackendService) {
 
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as string;
-    this.kindergarden = this.storeService.findKindergardenById(this.id);
+    // this.kindergarden = this.storeService.findKindergardenById(this.id)
     if (this.id && !this.kindergarden) {
       this.backendService.findKindergardenbyId(this.id).subscribe(value => {
         this.kindergarden = value
