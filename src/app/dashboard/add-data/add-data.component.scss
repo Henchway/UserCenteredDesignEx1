@@ -7,9 +7,27 @@
 
 .form-input-element {
   width: 50%;
-
 }
+
 .form-button {
 
 }
 
+@media screen and (max-width: 1200px){
+  .form-input-element {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .form-input-element {
+    width: 90%;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .form-input-element {
+    width: 95%;
+  }
+}
